@@ -6,6 +6,8 @@
 1. **Mettre à jour le système:**
 ```bash
    sudo apt update
+```
+```bash
    sudo apt upgrade
 ```
 2. **Installer Nginx**
