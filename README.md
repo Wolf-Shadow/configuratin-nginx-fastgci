@@ -7,59 +7,63 @@
 ```console
    sudo apt update
 ```
-```bash
+```console
    sudo apt upgrade
 ```
 2. **Installer Nginx**
 
-```bash 
+```console 
     sudo apt install nginx
 ```
 3. **Vérifierl'installation:**
-```bash
+```console
     nginx -v
 ```
 ### Sur CentOS/RHEL
 1. **Mettre à jour le système:**
-```bash
+```console
     sudo yum update
 ```
 2. **Installer Nginx**
 
-```bash 
+```console 
     sudo yum install epel-release
+```
+```console 
     sudo yum install nginx
-
 ```
 3. **Vérifierl'installation:**
-```bash
+```console
     nginx -v
 ```
 
 ## Étape 2: Démarrer et activer Nginx
 1. **Démarrer Nginx:**
-```bash 
+```console 
     sudo systemctl start nginx
 ```
 2. **Activer Nginx au démarrage**
-```bash 
+```console 
     sudo systemctl enable nginx
 ```
 
 ## Étape 3: Configurer le pare-feu
 ### Sur Debian/Ubuntu avec UFW
 1. **Autoriser le trafic HTTP et HTTPS:**
-```bash
+```console
     sudo ufw allow 'Nginx Full'
 ```
 ###   Sur CentOS/RHEL avec firewalld
 1. **Autoriser le trafic HTTP et HTTPS:**
-```bash
+```console
     sudo firewall-cmd --permanent --zone=public --add-service=http
+```
+```console
     sudo firewall-cmd --permanent --zone=public --add-service=https
+```
+```console
     sudo firewall-cmd --reload
 ```
-
 ## Étape 4: Configuration de base de Nginx
 1.**Fichiers de configuration:**
 
@@ -70,7 +74,7 @@ dans le répertoire **/etc/nginx/sites-available/** et de créer des liens symbo
 
 2. **Créer un fichier de configuration pour votre site:**
 
-```bash
+```console
     sudo nano /etc/nginx/sites-available/mon_site
 ```
 
@@ -89,15 +93,15 @@ dans le répertoire **/etc/nginx/sites-available/** et de créer des liens symbo
     }
 ```
 4. **Activer la configuration:**
-```bash
+```console
     sudo ln -s /etc/nginx/sites-available/mon_site /etc/nginx/sites-enabled/
 ```
 5. **Vérifier la configuration:**
-```bash
+```console
     sudo nginx -t
 ```
 6. **Redémarrer Nginx:**
-```bash
+```console
     sudo systemctl reload nginx
 ```
 
@@ -105,12 +109,14 @@ dans le répertoire **/etc/nginx/sites-available/** et de créer des liens symbo
 ## Étape 5: Déployer votre site web 
 
 1. **Créer le répertoire de votre site:** 
-```bash
+```console
     sudo mkdir -p /var/www/mon_site
 ```
 2. **Définir les permissions:**
-```bash
+```console
     sudo chown -R $USER:$USER /var/www/mon_site
+```
+```console
     sudo chmod -R 755 /var/www/mon_site
 ```
 3. **Placer votre contenu dans le répertoire:**
@@ -126,24 +132,26 @@ dans le répertoire **/etc/nginx/sites-available/** et de créer des liens symbo
 ### Sur Debian/Ubuntu
 
 1. **Mettre à jour le système:**
-```bash
+```console
    sudo apt update
+```
+```console
    sudo apt upgrade
 ```
 2. **Installer PHP-FPM**
 
-```bash 
+```console 
     sudo apt install php-fpm
 ```
 
 ### Sur CentOS/RHEL
 
 1. **Mettre à jour le système:**
-```bash
+```console
    sudo yum update
 ```
 2. **Installer PHP-FPM**
 
-```bash 
+```console 
     sudo yum install php-fpm
 ```
