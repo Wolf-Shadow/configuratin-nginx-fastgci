@@ -155,3 +155,85 @@ dans le répertoire **/etc/nginx/sites-available/** et de créer des liens symbo
 ```console 
     sudo yum install php-fpm
 ```
+
+
+# Étape 2: Configurer PHP-FPM
+1. **Modifier le fichier de configuration de PHP-FPM:**
+Le fichier de configuration est généralement situé à /etc/php/8.1/fpm/php-fpm.conf (sur Debian/Ubuntu) ou /etc/php-fpm.d/www.conf (sur CentOS/RHEL).  
+Assurez-vous que listen est configuré pour utiliser un socket Unix ou un port TCP. Par exemple:
+
+```ini
+    listen = /run/php/php8.1-fpm.sock
+```
+
+Soyez conscient que Sesi est pour PHP8.1. Le nom peut différer en fonction de la version PHP que vous utilisez.
+
+2. **Démarrer et activer PHP-FPM:**
+```console
+    sudo systemctl start php8.1-fpm
+```
+```console
+    sudo systemctl enable php8.1-fpm
+```
+
+# Étape 3: Configurer Nginx pour Utiliser FastCGI
+
+1. **Créer un fichier de configuration pour votre site:** 
+
+```console
+    sudo nano /etc/nginx/sites-available/mon_site
+```
+
+2. **Ajouter la configuration FastCGI:**
+Voici un exemple de configuration pour servir des fichiers PHP:
+Dans les dossiers de votre site, créez un dossier api qui contiendra le code à appeler.
+
+```ini
+    server {
+        listen 80;
+        server_name www.mon_site.com;
+
+        root /var/www/mon_site;
+        index index.php index.html index.htm;
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+
+        location /api/ {
+            try_files $uri $uri/ /index.php?$query_string;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_index index.cgi;
+            include fastcgi_params;
+            fastcgi_pass unix:/var/run/fcgiwrap.socket;
+        }
+
+        location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include fastcgi_params;
+        }
+
+        location ~ /\.ht {
+            deny all;
+        }
+    }
+
+```
+3. **Activer la configuration:**
+```console
+    sudo ln -s /etc/nginx/sites-available/mon_site /etc/nginx/sites-enabled/
+```
+
+4. **Vérifier la configuration de Nginx:**
+```console
+    sudo nginx -t
+```
+
+5. **Redémarrer Nginx:**
+```console
+    sudo systemctl reload nginx
+```
+
+# Étape 5: Déployer l'Application FastCGI
