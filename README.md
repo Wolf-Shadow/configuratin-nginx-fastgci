@@ -114,7 +114,7 @@ dans le répertoire **/etc/nginx/sites-available/** et de créer des liens symbo
 ```
 2. **Définir les permissions:**
 ```console
-    sudo chown -R $USER:$USER /var/www/mon_site
+    sudo chown -R www-data:www-data /var/www/mon_site
 ```
 ```console
     sudo chmod -R 755 /var/www/mon_site
