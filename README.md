@@ -4,7 +4,7 @@
 
 ### Sur Debian/Ubuntu
 1. **Mettre à jour le système:**
-```bash
+```console
    sudo apt update
 ```
 ```bash
