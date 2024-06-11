@@ -236,4 +236,23 @@ Dans les dossiers de votre site, créez un dossier api qui contiendra le code à
     sudo systemctl reload nginx
 ```
 
+# Gide explicatif:  Directives, paramètres et variables FastCGI importants
+
+1. **Directives FastCGI communes**
+
+    Les directives servent à configurer un serveur FastCGI externe pour traiter les requêtes. En règle générale, on utilise des directives pour déterminer l'emplacement et les paramètres de ce serveur. Les configurations habituelles comprennent la définition des paramètres de connexion, l'ajout des paramètres nécessaires, la mise en place de caches pour améliorer les performances et la gestion des délais d'attente
+ 
+- **fastcgi_index :** Précisez le fichier d'index à ajouter aux valeurs **$fastcgi_script_name** terminées par une barre oblique (/). Ceci est souvent utile si le paramètre SCRIPT_FILENAME est défini sur **$document_root$fastcgi_script_name** et que le bloc d'emplacement est configuré pour accepter les demandes avec des informations après le fichier.
+
+- **fastcgi_pass :** La directive réelle qui oriente les requêtes dans le contexte actuel vers le backend. Cela indique l'endroit où le processeur FastCGI peut être atteint.
+
+- **try_files :** Cela est fréquemment utilisé dans le cadre d'une routine de nettoyage de requête, pour vérifier l'existence du fichier demandé avant de le transmettre au processeur FastCGI.
+
+- **include :** Habituellement, cela est utilisé pour inclure des détails de configuration communs et partagés dans plusieurs endroits.
+
+- **fastcgi_param :** La directive de tableau peut être utilisée pour définir des paramètres sur des valeurs. Habituellement, cela est utilisé en parallèle avec des variables Nginx pour définir les paramètres FastCGI sur des valeurs spécifiques à la requête.
+
+- **fastcgi_split_path_info :** Cette directive établit une expression régulière avec deux groupes capturés. La variable $fastcgi_script_name est utilisée comme valeur pour le premier groupe capturé. La variable **$fastcgi_path_info** est utilisée pour la valeur du deuxième groupe capturé. Ces deux éléments sont souvent utilisés pour analyser correctement la requête afin que le processeur sache quelles parties de la requête sont les fichiers à exécuter et quelles parties sont des informations supplémentaires à transmettre au script.
+
+- **fastcgi_intercept_errors :** Cette directive précise si les erreurs reçues du serveur FastCGI doivent être prises en charge par Nginx ou transmises directement au client.
 # Étape 5: Déployer l'Application FastCGI
