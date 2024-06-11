@@ -1,5 +1,71 @@
 # Guide de Configuration d'un Serveur Nginx sur Ubtuntu
 
+
+## Étape 1: Installation de Nginx
+
+### Sur Debian/Ubuntu
+1. Mettre à jour le système
+2. Installer Nginx
+3. Vérifier l'installation
+
+### Sur CentOS/RHEL
+1. Mettre à jour le système
+2. Installer Nginx
+3. Vérifier l'installation
+
+## Étape 2: Démarrer et activer Nginx
+1. Démarrer Nginx
+2. Activer Nginx au démarrage
+
+## Étape 3: Configurer le pare-feu
+### Sur Debian/Ubuntu avec UFW
+1. Autoriser le trafic HTTP et HTTPS
+
+### Sur CentOS/RHEL avec firewalld
+1. Autoriser le trafic HTTP et HTTPS
+
+## Étape 4: Configuration de base de Nginx
+1. Fichiers de configuration
+2. Créer un fichier de configuration pour votre site
+3. Exemple de configuration de base
+4. Activer la configuration
+5. Vérifier la configuration
+6. Redémarrer Nginx
+
+## Étape 5: Déployer votre site web
+1. Créer le répertoire de votre site
+2. Définir les permissions
+3. Placer votre contenu dans le répertoire
+
+# Guide de Configuration de FastCGI avec Nginx
+
+## Étape 1: Installation des Paquets Nécessaires si PHP n'est pas installé sur votre serveur
+### Sur Debian/Ubuntu
+1. Mettre à jour le système
+2. Installer PHP-FPM
+
+### Sur CentOS/RHEL
+1. Mettre à jour le système
+2. Installer PHP-FPM
+
+## Étape 2: Configurer PHP-FPM
+1. Modifier le fichier de configuration de PHP-FPM
+2. Démarrer et activer PHP-FPM
+
+## Étape 3: Configurer Nginx pour Utiliser FastCGI
+1. Créer un fichier de configuration pour votre site
+2. Ajouter la configuration FastCGI
+3. Activer la configuration
+4. Vérifier la configuration de Nginx
+5. Redémarrer Nginx
+
+# Guide explicatif: Directives, paramètres et variables FastCGI importants
+1. Directives FastCGI communes
+2. Variables communes utilisées avec FastCGI
+3. Paramètres FastCGI communs
+
+## Étape 5: Déployer l'Application FastCGI
+
 ## Étape 1: Installation de Nginx
 
 ### Sur Debian/Ubuntu
