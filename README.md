@@ -238,7 +238,7 @@ Dans les dossiers de votre site, créez un dossier api qui contiendra le code à
 
 # Gide explicatif:  Directives, paramètres et variables FastCGI importants
 
-1. **Directives FastCGI communes**
+### **Directives FastCGI communes**
 
     Les directives servent à configurer un serveur FastCGI externe pour traiter les requêtes. En règle générale, on utilise des directives pour déterminer l'emplacement et les paramètres de ce serveur. Les configurations habituelles comprennent la définition des paramètres de connexion, l'ajout des paramètres nécessaires, la mise en place de caches pour améliorer les performances et la gestion des délais d'attente
  
@@ -256,7 +256,9 @@ Dans les dossiers de votre site, créez un dossier api qui contiendra le code à
 
 - **fastcgi_intercept_errors :** Cette directive précise si les erreurs reçues du serveur FastCGI doivent être prises en charge par Nginx ou transmises directement au client.
 
-2. **Variables communes utilisées avec FastCGI**
+### **Variables communes utilisées avec FastCGI**
+
+    Avant d'aborder les paramètres que vous pourriez utiliser avec les passes FastCGI, il est pertinent de discuter de certaines variables Nginx courantes que nous utiliserons pour définir ces paramètres. Certaines sont définies par le module FastCGI de Nginx, mais la plupart proviennent du module Core.
 
 - **$query_string** ou **$args :**les arguments énoncés dans la demande initiale du client.
 
