@@ -281,4 +281,30 @@ Avant d'aborder les paramètres que vous pourriez utiliser avec les passes FastC
 - **$document_root :** Cette variable contient la valeur actuelle de la racine du document. Elle est définie en fonction des directives root ou alias.
 
 - **$uri :** Cette variable contient l'URI actuel avec la normalisation appliquée. Puisque certaines directives de réécriture ou de redirection interne peuvent modifier l'URI, cette variable reflète ces changements.
+
+### **Paramètres FastCGI communs**
+
+Les paramètres FastCGI représentent des informations clé-valeur que nous voulons rendre disponibles au processeur FastCGI auquel nous envoyons la requête. Toutes les applications n'auront pas besoin des mêmes paramètres, donc il est souvent nécessaire de consulter la documentation de l'application.
+
+Certains de ces paramètres sont indispensables pour que le processeur identifie correctement le script à exécuter. D'autres sont destinés au script lui-même, ce qui peut modifier son comportement s'il est configuré pour utiliser les paramètres définis.
+
+- **QUERY_STRING  :** Ce paramètre doit être défini sur n'importe quelle chaîne de requête fournie par le client. Il s'agit généralement de paires clé-valeur fournies après un « ? » dans l'URI. Habituellement, ce paramètre est défini sur les variables **$query_string** ou **$args**, qui doivent toutes deux contenir les mêmes données.
+
+- **REQUEST_METHOD :** Ce paramètre indique au processeur FastCGI quel type d'action a été demandé par le client. Il s'agit de l'un des rares paramètres à définir pour que la passe fonctionne correctement.
+
+- **CONTENT_TYPE :** Si la méthode de requête est définie sur \POST, ce paramètre doit être défini. Il indique le type de contenu auquel le processeur FastCGI doit s'attendre. Il est généralement défini sur la variable **$content_type**, laquelle est déterminée en fonction des informations de la requête d'origine. 
+
+- **CONTENT_LENGTH :** Si la méthode de requête est \POST, ce paramètre doit être défini. Cela indique la longueur du contenu. Il est généralement défini sur **$content_length**, une variable qui récupère sa valeur à partir des informations de la demande client d'origine.
+
+- **SCRIPT_NAME :** Ce paramètre permet d'indiquer le nom du script principal qui sera exécuté. Il s'agit d'un paramètre extrêmement important pouvant être configuré de différentes manières selon vos besoins. Souvent, cela est défini sur **$fastcgi_script_name**, qui devrait être l'URI de la requête, l'URI de la requête avec le fastcgi_index ajouté s'il se termine par une barre oblique, ou le premier groupe capturé si vous utilisez **fastcgi_fix_path_info**.
+
+- **SCRIPT_FILENAME :**  Ce paramètre spécifie l'emplacement réel sur le disque du script à exécuter. En raison de sa relation avec le paramètre **SCRIPT_NAME**, certains guides suggèrent d'utiliser **$document_root$fastcgi_script_name**. Une autre alternative qui présente de nombreux avantages consiste à utiliser **$request_filename**.
+
+- **REQUEST_URI :** Il doit contenir l'URI de requête complet et non modifié, avec le script à exécuter, des informations de chemin supplémentaires et tous les arguments. Certaines applications préfèrent analyser ces informations elles-mêmes. Ce paramètre leur fournit les informations nécessaires pour le faire.
+
+- **PATH_INFO :** Si **cgi.fix_pathinfo** est défini sur \1 dans le fichier de configuration PHP, ce paramètre contiendra toutes les informations de chemin supplémentaires ajoutées après le nom du script. Il est souvent utilisé pour définir un argument de fichier sur lequel le script doit agir. Cependant, définir **cgi.fix_pathinfo** sur \1 peut avoir des implications sur la sécurité si les requêtes de script ne sont pas filtrées par d'autres moyens (nous en discuterons plus tard). Parfois, cela est défini sur la variable **$fastcgi_path_info**, qui contient le deuxième groupe capturé par la directive **fastcgi_split_path_info**. D'autres fois, une variable temporaire devra être utilisée car cette valeur est parfois encombrée par d'autres traitements.
+
+- **PATH_TRANSLATED :** Ce paramètre mappe les informations de chemin contenues dans **PATH_INFO** dans un chemin de système de fichiers réel. Habituellement, cela sera défini sur quelque chose comme **$document_root$fastcgi_path_info**, mais parfois la dernière variable doit être remplacée par la variable temporaire enregistrée comme indiqué précédemment. 
+
+
 # Étape 5: Déployer l'Application FastCGI
