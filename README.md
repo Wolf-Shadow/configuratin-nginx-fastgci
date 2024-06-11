@@ -255,4 +255,28 @@ Dans les dossiers de votre site, créez un dossier api qui contiendra le code à
 - **fastcgi_split_path_info :** Cette directive établit une expression régulière avec deux groupes capturés. La variable $fastcgi_script_name est utilisée comme valeur pour le premier groupe capturé. La variable **$fastcgi_path_info** est utilisée pour la valeur du deuxième groupe capturé. Ces deux éléments sont souvent utilisés pour analyser correctement la requête afin que le processeur sache quelles parties de la requête sont les fichiers à exécuter et quelles parties sont des informations supplémentaires à transmettre au script.
 
 - **fastcgi_intercept_errors :** Cette directive précise si les erreurs reçues du serveur FastCGI doivent être prises en charge par Nginx ou transmises directement au client.
+
+2. **Variables communes utilisées avec FastCGI**
+
+- **$query_string** ou **$args :**les arguments énoncés dans la demande initiale du client.
+
+- **$is_args :** sera égal à \ ? s'il y a des arguments dans la requête et sera défini sur une chaîne vide dans le cas contraire. Ceci est utile lors de la construction de paramètres qui peuvent ou non avoir des arguments.
+
+- **$request_method :** indique la méthode de requête initiale du client, ce qui peut aider à déterminer si une opération doit être autorisée dans le contexte actuel.
+
+- **$content_type :** Cela est spécifié dans l'en-tête de requête Content-Type. Cette information est indispensable pour le proxy si la requête de l'utilisateur est un POST, afin de gérer correctement le contenu qui suit.
+
+- **$content_length :** Cela est déterminé par la valeur de l'en-tête Content-Length du client. Ces informations sont nécessaires pour toutes les requêtes POST des clients.
+
+- **$fastcgi_script_name :** Cela contiendra le fichier de script à exécuter. Si la requête se termine par une barre oblique (/), la valeur de la directive **fastcgi_index** sera ajoutée à la fin. Si la directive **fastcgi_split_path_info** est utilisée, cette variable sera définie par le premier groupe capturé spécifié par cette directive. La valeur de cette variable doit indiquer le script réel à exécuter.
+
+- **$request_filename :**  Cette variable contiendra le chemin d'accès au fichier demandé. Elle obtient cette valeur en combinant la racine du document actuel, en prenant en compte à la fois les directives root et alias, ainsi que la valeur de **$fastcgi_script_name.** Cela constitue une manière très flexible de définir le paramètre **SCRIPT_FILENAME.**
+
+- **$request_uri :** La requête entière telle que reçue du client, incluant le script, toute information de chemin supplémentaire, ainsi que toutes les chaînes de requête.
+
+- **$fastcgi_path_info :** Cette variable contient des informations de chemin supplémentaires qui peuvent être présentes après le nom du script dans la requête. Elle peut parfois indiquer un autre emplacement que le script à exécuter doit connaître. La valeur de cette variable provient du deuxième groupe capturé par l'expression régulière utilisée avec la directive **fastcgi_split_path_info.**
+
+- **$document_root :** Cette variable contient la valeur actuelle de la racine du document. Elle est définie en fonction des directives root ou alias.
+
+- **$uri :** Cette variable contient l'URI actuel avec la normalisation appliquée. Puisque certaines directives de réécriture ou de redirection interne peuvent modifier l'URI, cette variable reflète ces changements.
 # Étape 5: Déployer l'Application FastCGI
