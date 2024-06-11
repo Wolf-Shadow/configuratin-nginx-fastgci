@@ -258,7 +258,7 @@ Dans les dossiers de votre site, créez un dossier api qui contiendra le code à
 
 ### **Variables communes utilisées avec FastCGI**
 
-    Avant d'aborder les paramètres que vous pourriez utiliser avec les passes FastCGI, il est pertinent de discuter de certaines variables Nginx courantes que nous utiliserons pour définir ces paramètres. Certaines sont définies par le module FastCGI de Nginx, mais la plupart proviennent du module Core.
+Avant d'aborder les paramètres que vous pourriez utiliser avec les passes FastCGI, il est pertinent de discuter de certaines variables Nginx courantes que nous utiliserons pour définir ces paramètres. Certaines sont définies par le module FastCGI de Nginx, mais la plupart proviennent du module Core.
 
 - **$query_string** ou **$args :**les arguments énoncés dans la demande initiale du client.
 
