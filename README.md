@@ -240,7 +240,7 @@ Dans les dossiers de votre site, créez un dossier api qui contiendra le code à
 
 ### **Directives FastCGI communes**
 
-    Les directives servent à configurer un serveur FastCGI externe pour traiter les requêtes. En règle générale, on utilise des directives pour déterminer l'emplacement et les paramètres de ce serveur. Les configurations habituelles comprennent la définition des paramètres de connexion, l'ajout des paramètres nécessaires, la mise en place de caches pour améliorer les performances et la gestion des délais d'attente
+Les directives servent à configurer un serveur FastCGI externe pour traiter les requêtes. En règle générale, on utilise des directives pour déterminer l'emplacement et les paramètres de ce serveur. Les configurations habituelles comprennent la définition des paramètres de connexion, l'ajout des paramètres nécessaires, la mise en place de caches pour améliorer les performances et la gestion des délais d'attente
  
 - **fastcgi_index :** Précisez le fichier d'index à ajouter aux valeurs **$fastcgi_script_name** terminées par une barre oblique (/). Ceci est souvent utile si le paramètre SCRIPT_FILENAME est défini sur **$document_root$fastcgi_script_name** et que le bloc d'emplacement est configuré pour accepter les demandes avec des informations après le fichier.
 
